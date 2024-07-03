@@ -1,12 +1,21 @@
 <template>
   <div id="app">
-    <nav>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </nav>
+    <HelloWorld></HelloWorld>
     <router-view/>
   </div>
 </template>
+
+<script>
+// @ is an alias to /src
+import HelloWorld from './components/HelloWorld.vue'
+
+export default {
+  name: 'HomeView',
+  components: {
+    HelloWorld
+  }
+}
+</script>
 
 <style>
 #app {
