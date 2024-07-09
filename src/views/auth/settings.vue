@@ -1,0 +1,381 @@
+<template>
+    <section>
+      <div
+        class="w-full min-h-screen fixed z-[9999] flex justify-center items-center px-4 py-8 bg-white dark:bg-gray-900 text-black dark:text-white"
+      >
+        <div
+          class="max-h-full relative border w-[1000px] bg-white dark:bg-gray-800 m-3 rounded-md overflow-hidden shadow-md"
+        >
+          <div
+            class="w-full flex justify-between items-center gap-3 p-3 dark:border-gray-700 border-b"
+          >
+            <h3 class="text-xl">Setting</h3>
+            <i class="fa-solid fa-xmark"></i>
+          </div>
+
+          <div class="w-full h-[450px]">
+            <div class="grid grid-cols-3 h-full">
+              <div class="w-full border-r dark:border-gray-700">
+                <input
+                  type="radio"
+                  name="tabs"
+                  id="tab-general"
+                  class="hidden"
+                  checked
+                />
+                <label
+                  for="tab-general"
+                  class="w-full p-2 sm:p-4 border-b cursor-pointer callPopup2 dark:border-gray-700 text-left text-xl block"
+                  >General</label
+                >
+
+                <input
+                  type="radio"
+                  name="tabs"
+                  id="tab-template"
+                  class="hidden"
+                />
+                <label
+                  for="tab-template"
+                  class="w-full p-2 sm:p-4 border-b cursor-pointer callPopup2 dark:border-gray-700 text-left text-xl block"
+                  >Template</label
+                >
+
+                <input
+                  type="radio"
+                  name="tabs"
+                  id="tab-hotkeys"
+                  class="hidden"
+                />
+                <label
+                  for="tab-hotkeys"
+                  class="w-full p-2 sm:p-4 border-b cursor-pointer callPopup2 dark:border-gray-700 text-left text-xl block"
+                  >Hotkeys</label
+                >
+
+                <input
+                  type="radio"
+                  name="tabs"
+                  id="tab-account"
+                  class="hidden"
+                />
+                <label
+                  for="tab-account"
+                  class="w-full p-2 sm:p-4 mb-4 border-b cursor-pointer callPopup2 dark:border-gray-700 text-left text-xl block"
+                  >Account</label
+                >
+              </div>
+              <div class="w-full col-span-2 overflow-y-auto noneScroll">
+                <!-- first-tab-contant  -->
+                <div id="content-general" class="tab-content">
+                  <div class="w-full">
+                    <div
+                      class="w-full p-2 bg-gray-200 dark:bg-gray-700 flex justify-start gap-3 items-center"
+                    >
+                      <i class="fa-solid fa-language"></i>
+                      <span>Language</span>
+                    </div>
+                    <div class="w-full p-5">
+                      <button
+                        class="min-w-[180px] h-[50px] rounded-sm flex px-4 justify-start items-center bg-gray-200 dark:bg-[#596987] sm:w-[60px] relative"
+                      >
+                        Language
+                        <input
+                          type="button"
+                          class="w-full h-full absolute callPopup2 top-0 cursor-pointer left-0"
+                        />
+                        <div
+                          class="w-[0px] h-[0px] flex flex-col popupBox rounded-sm bg-white dark:bg-gray-900 shadow-md absolute top-[55px] right-0 overflow-hidden"
+                        >
+                          <span class="p-3 w-full hover:bg-[#b3cedb3d]"
+                            >English</span
+                          >
+                          <span class="p-3 w-full hover:bg-[#b3cedb3d]"
+                            >German</span
+                          >
+                        </div>
+                      </button>
+                    </div>
+                    <div
+                      class="w-full p-2 bg-gray-200 dark:bg-gray-700 flex justify-start gap-3 items-center"
+                    >
+                      <i class="fa-solid fa-circle-half-stroke"></i>
+                      <span>Them</span>
+                    </div>
+                    <div class="w-full p-5">
+                      <!-- -----them btton -------------  -->
+                      <button
+                        onclick="changeThem()"
+                        class="p-1 flex justify-start bg-gray-200 items-center gap-2 p-3 w-[180px] px-4 rounded-sm hover:bg-gray-200 dark:bg-gray-600 dark:hover:bg-gray-700"
+                      >
+                        <i class="fa-solid fa-circle-half-stroke"></i>
+                        <p>Change</p>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- ======= secend tab --------------  -->
+                <div id="content-template" class="tab-content">
+                  <div
+                    class="w-full p-2 bg-gray-200 dark:bg-gray-700 flex justify-start gap-3 items-center"
+                  >
+                    <i class="fa-solid fa-language"></i>
+                    <span>Template</span>
+                  </div>
+                  <div class="w-full p-3">
+                    <form class="w-full">
+                      <textarea
+                        required
+                        class="w-full h-[250px] rounded-sm border-gray-500 p-2 bg-[rgba(0,0,0,0)] outline-0 border"
+                      >
+# New Note {{}} dfhls
+                    </textarea
+                      >
+                      <div class="w-full flex justify-between mt-2">
+                        <span></span>
+                        <input
+                          type="submit"
+                          value="Save"
+                          class="bg-blue-500 cursor-pointer px-5 rounded-sm p-1"
+                        />
+                      </div>
+                    </form>
+                  </div>
+                </div>
+
+                <!-- ------------------ thired contant ----------------------  -->
+                <div id="content-hotkeys" class="tab-content">
+                  <div
+                    class="w-full p-2 bg-gray-200 dark:bg-gray-700 flex justify-start gap-3 items-center"
+                  >
+                    <i class="fa-solid fa-keyboard"></i>
+                    <span>Hotkeys</span>
+                  </div>
+                  <div class="w-full p-3">
+                    <div class="w-full grid grid-cols-2">
+                      <!-- ---------- title --------------  -->
+                      <p
+                        class="bg-gray-200 dark:bg-gray-700 text-center w-full p-1 font-bold border border-gray-600"
+                      >
+                        Action
+                      </p>
+                      <p
+                        class="bg-gray-200 dark:bg-gray-700 text-center w-full p-1 font-bold border border-gray-600"
+                      >
+                        Hotkey
+                      </p>
+
+                      <!-- --------------- key words -----------------  -->
+                      <p class="border border-gray-600 p-1 w-full">
+                        Save current note
+                      </p>
+                      <p class="border border-gray-600 p-1 w-full">
+                        command + s
+                      </p>
+                      <!-- -------- col 2 --------------  -->
+                      <p class="border border-gray-600 p-1 w-full">
+                        Save current note
+                      </p>
+                      <p class="border border-gray-600 p-1 w-full">
+                        command + s
+                      </p>
+                      <!-- -------- col 3 --------------  -->
+                      <p class="border border-gray-600 p-1 w-full">
+                        Save current note
+                      </p>
+                      <p class="border border-gray-600 p-1 w-full">
+                        command + s
+                      </p>
+                      <!-- -------- col 4 --------------  -->
+                      <p class="border border-gray-600 p-1 w-full">
+                        Save current note
+                      </p>
+                      <p class="border border-gray-600 p-1 w-full">
+                        command + s
+                      </p>
+                      <!-- -------- col 5 --------------  -->
+                      <p class="border border-gray-600 p-1 w-full">
+                        Save current note
+                      </p>
+                      <p class="border border-gray-600 p-1 w-full">
+                        command + s
+                      </p>
+                      <!-- -------- col 6 --------------  -->
+                      <p class="border border-gray-600 p-1 w-full">
+                        Save current note
+                      </p>
+                      <p class="border border-gray-600 p-1 w-full">
+                        command + s
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- ------------------- forth tab contant -----------------  -->
+                <div id="content-account" class="tab-content">
+                  <!-- changeing email  -->
+                  <div class="w-full">
+                    <div
+                    class="w-full p-2 bg-gray-700 flex justify-start gap-3 items-center"
+                  >
+                  <i class="fa-solid fa-envelope"></i>
+                    <span>Change email</span>
+                  </div>
+                  <div class="w-full p-6">
+                    <!-- ---- change start form here ---------  -->
+                    <form
+                    class="flex flex-col justify-start items-start gap-4  w-full sm:w-[300px]  dark:border-gray-700"
+                  >
+                  <div class="w-full relative">
+                    <input
+                      type="text"
+                      class="w-full p-4 border dark:border-white dark:outline-white inputBox bg-[rgba(0,0,0,0)] rounded-md dark:bg-[rgb(17 24 39)] dark:text-white dark:border-gray-600"
+                      required
+                      placeholder="Email Address*"
+                    />
+                    <label
+                      class="absolute top-4 left-4 bg-white dark:bg-gray-800 dark:!border-white px-2 dark:!bg-[rgb(17 24 39)] py-0 -z-10 label dark:text-white"
+                    >
+                      Email Address*
+                    </label>
+                  </div>
+                    <div class="w-full mt-2 relative">
+                      <input
+                        type="password"
+                        class="w-full p-4 border inputBox bg-[rgba(0,0,0,0)] dark:border-white dark:outline-white rounded-md dark:bg-[rgb(17 24 39)] dark:text-white dark:border-gray-600"
+                        required
+                        placeholder="Password*"
+                      />
+                      <label
+                        class="absolute top-4 left-4 bg-white dark:bg-gray-800 dark:!border-white px-2 dark:!bg-[rgb(17 24 39)] py-0 -z-10 label dark:text-white"
+                        >Password*</label
+                      >
+                    </div>
+                    
+                    <input
+                      type="submit"
+                      value="change email"
+                      class=" p-2 rounded-md cursor-pointer bg-slate-400 font-bold text-[14px] text-white"
+                    />
+          
+                    
+                  </form>
+                    <!-- ---- change end form here ---------  -->
+                  </div>
+                  </div>
+                  <!-- changing password  -->
+                  <div class="w-full">
+                    <div
+                    class="w-full p-2 bg-gray-700 flex justify-start gap-3 items-center"
+                  >
+                  <i class="fa-solid fa-key"></i>
+                    <span>Change password</span>
+                  </div>
+                  <div class="w-full p-6">
+                    <!-- ---- change start form here ---------  -->
+                    <form
+                    class="flex flex-col justify-start items-start gap-4  w-full sm:w-[300px]  dark:border-gray-700"
+                  >
+                  <div class="w-full relative">
+                    <input
+                      type="password"
+                      class="w-full p-4 border inputBox bg-[rgba(0,0,0,0)] dark:border-white dark:outline-white rounded-md dark:bg-[rgb(17 24 39)] dark:text-white dark:border-gray-600"
+                      required
+                      placeholder="Current Password*"
+                    />
+                    <label
+                      class="absolute top-4 left-4 bg-white dark:bg-gray-800 dark:!border-white px-2 dark:!bg-[rgb(17 24 39)] py-0 -z-10 label dark:text-white"
+                      >Current Password*</label
+                    >
+                  </div>
+                    <div class="w-full mt-2 relative">
+                      <input
+                        type="password"
+                        class="w-full p-4 border inputBox bg-[rgba(0,0,0,0)] dark:border-white dark:outline-white rounded-md dark:bg-[rgb(17 24 39)] dark:text-white dark:border-gray-600"
+                        required
+                        placeholder="New Password*"
+                      />
+                      <label
+                        class="absolute top-4 left-4 bg-white dark:bg-gray-800 dark:!border-white px-2 dark:!bg-[rgb(17 24 39)] py-0 -z-10 label dark:text-white"
+                        >New Password*</label
+                      >
+                    </div>
+                    <div class="w-full mt-2 relative">
+                      <input
+                        type="password"
+                        class="w-full p-4 border inputBox bg-[rgba(0,0,0,0)] dark:border-white dark:outline-white rounded-md dark:bg-[rgb(17 24 39)] dark:text-white dark:border-gray-600"
+                        required
+                        placeholder="Repeat New Password*"
+                      />
+                      <label
+                        class="absolute top-4 left-4 bg-white dark:bg-gray-800 dark:!border-white px-2 dark:!bg-[rgb(17 24 39)] py-0 -z-10 label dark:text-white"
+                        >Repeat New Password*</label
+                      >
+                    </div>
+                    
+                    <input
+                      type="submit"
+                      value="change password"
+                      class=" p-2 rounded-md cursor-pointer bg-slate-400 font-bold text-[14px] text-white"
+                    />
+          
+                    
+                  </form>
+                    <!-- ---- change end form here ---------  -->
+                  </div>
+                  </div>
+                <!-- Delete account -   -->
+                <div class="w-full">
+                  <div
+                  class="w-full p-2 bg-gray-700 flex justify-start gap-3 items-center"
+                >
+                  <i class="fa-solid fa-user"></i>
+                  <span>Delete account</span>
+                </div>
+                <div class="w-full p-6">
+                  <!-- ---- change start form here ---------  -->
+                  <form
+                  class="flex flex-col justify-start items-start gap-4  w-full sm:w-[300px]  dark:border-gray-700"
+                >
+                  <div class="w-full relative">
+                    <input
+                      type="password"
+                      class="w-full p-4 border inputBox bg-[rgba(0,0,0,0)] dark:border-white dark:outline-white rounded-md dark:bg-[rgb(17 24 39)] dark:text-white dark:border-gray-600"
+                      required
+                      placeholder="Password*"
+                    />
+                    <label
+                      class="absolute top-4 left-4 bg-white dark:bg-gray-800 dark:!border-white px-2 dark:!bg-[rgb(17 24 39)] py-0 -z-10 label dark:text-white"
+                      >Password*</label
+                    >
+                  </div>
+                  
+                  <input
+                    type="submit"
+                    value="Delete account"
+                    class=" p-2 rounded-md cursor-pointer bg-slate-400 font-bold text-[14px] text-white"
+                  />
+        
+                  
+                </form>
+                  <!-- ---- change end form here ---------  -->
+                </div>
+                </div>
+
+                <!-- ----  -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+    </section> 
+
+</template>
+
+<script>
+export default {
+
+}
+</script>

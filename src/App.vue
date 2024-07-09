@@ -1,18 +1,19 @@
 <template>
   <div id="app">
-    <HelloWorld></HelloWorld>
+    <NavBar></NavBar>
     <router-view/>
   </div>
 </template>
 
+
 <script>
 // @ is an alias to /src
-import HelloWorld from './components/HelloWorld.vue'
+import NavBar from './components/navbar.vue'
 
 export default {
   name: 'HomeView',
   components: {
-    HelloWorld
+    NavBar
   }
 }
 </script>

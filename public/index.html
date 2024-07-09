@@ -13,23 +13,34 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
     />
 
-    <!-- --------------tailwindcss link --------------------- -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- --------------------------- tailwind custom color maker --------------------------- -->
     <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              clifford: "#da373d",
-            },
-          },
-        },
-        darkMode: "class",
-      };
+      window.addEventListener("load", () => {
+        setThem();
+      });
+
+      function changeThem() {
+        const them = localStorage.getItem("theme")
+          ? localStorage.getItem("theme")
+          : "light";
+        if (them === "light") {
+          localStorage.setItem("theme", "dark");
+        } else {
+          localStorage.setItem("theme", "light");
+        }
+        setThem();
+      }
+
+      function setThem() {
+        const them = localStorage.getItem("theme")
+          ? localStorage.getItem("theme")
+          : "light";
+        const applyThem = document.querySelector("html");
+        applyThem.setAttribute("class", them);
+      }
     </script>
 
   </head>
+
   <body>
     <noscript>
       <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
@@ -38,21 +49,30 @@
     <!-- built files will be auto injected -->
   </body>
 </html>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      transition: 0.3s;
-    }
-    .inputBox:valid {
-      border: 2px solid rgb(0, 0, 0);
-    }
-    .inputBox:focus ~ .label,
-    .inputBox:valid ~ .label {
-      transform: translate(0, -25px);
-      font-size: 0.8rem;
-      z-index: 10;
-      border-left: 2px solid black;
-      border-right: 2px solid black;
-    }
-  </style>
+
+<style>
+  @import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
+  * {
+    margin: 0;
+    padding: 0;
+    transition: 0.3s;
+  }
+  .inputBox:valid {
+    border: 1px solid rgb(70, 70, 70);
+  }
+  .inputBox:focus {
+    outline: 1px;
+  }
+  .inputBox:focus ~ .label,
+  .inputBox:valid ~ .label {
+    transform: translate(0, -25px);
+    font-size: 0.8rem;
+    z-index: 10;
+    border-left: 1px solid rgb(70, 70, 70);
+    border-right: 1px solid rgb(70, 70, 70);
+  }
+  .callPopup:focus ~ .popupBox {
+    width: 120px;
+    height: auto;
+  }
+</style>

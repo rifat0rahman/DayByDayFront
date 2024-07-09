@@ -1,29 +1,23 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import HomeView from '../views/dashboard/HomeView.vue'
-import about from '../views/dashboard/AboutView.vue'
+import note from '../views/dashboard/note.vue'
 // for auth here
 import login from '../views/auth/login.vue'
 import registration from '../views/auth/registration.vue'
 import forget_pass from '../views/auth/forgetpass.vue'
-
+import settings from '../views/auth/settings.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
-    name: 'home',
-    component: HomeView
-  },
-  {
-    path: '/about',
-    name: 'about',
-    component:about
+    path: '/app/note',
+    name: 'note',
+    component: note
   },
   // auth here
   {
-    path: '/login',
+    path: '/',
     name: 'login',
     component:login
   },
@@ -36,6 +30,11 @@ const routes = [
     path: '/forget-pasword',
     name: 'forgetpass',
     component:forget_pass
+  },
+  {
+    path: '/settings',
+    name: 'setting',
+    component:settings
   },
 ]
 
