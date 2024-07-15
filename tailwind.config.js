@@ -1,4 +1,5 @@
 module.exports = {
+  mode: 'jit',
   content: [
     "./index.html",
     "./src/**/*.{vue,js,ts,jsx,tsx}",
@@ -21,6 +22,7 @@ module.exports = {
   },
   plugins: [
     require('flowbite/plugin'),
+    require('@tailwindcss/typography'),
 
   ],
   darkMode: "class",

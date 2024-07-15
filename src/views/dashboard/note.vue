@@ -25,15 +25,15 @@
  
   <input v-model="selectedDate" datepicker id="default-datepicker" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
 </div>
-
+  </div>
 
             <!-- date picker-->
             
-            </div>
+          
 
             <!-- ------ save button -------------  -->
             <button
-              class="w-[50px] h-[50px] rounded-sm flex justify-center items-center bg-gray-200 dark:bg-[#596987]"
+              class="ml-1 w-[45px] h-[45px] rounded-md flex justify-center items-center bg-gray-200 dark:bg-[#7789AB]"
             >
               <i class="fa-solid fa-floppy-disk"></i>
             </button>
@@ -43,12 +43,16 @@
               class="w-[100px] rounded-sm overflow-hidden flex justify-center items-center"
             >
               <button
-                class="w-[50px] h-[50px] flex justify-center items-center bg-gray-200 dark:bg-[#596987]"
+                class="w-[45px] h-[45px] rounded-md mr-1.5 flex justify-center items-center bg-white dark:bg-[#7789AB]"
               >
-                <i class="fa-solid fa-bars"></i>
+                
+                  <RouterLink to="/app/all-notes">
+                    <i class="fa-solid fa-bars"></i>
+                  </RouterLink>
+                
               </button>
               <button
-                class="w-[50px] h-[50px] flex justify-center items-center bg-white dark:bg-[#969ca9]"
+                class="w-[45px] h-[45px] rounded-md flex justify-center items-center bg-white dark:bg-[#7789AB]"
               >
                 <i class="fa-solid fa-eye"></i>
               </button>
@@ -57,7 +61,7 @@
             <!-- ------- last info icon button ----------------  -->
             <button
               id="next-date"
-              class="w-[50px] h-[50px] rounded-sm flex justify-center items-center bg-gray-200 dark:bg-[#596987]"
+              class="w-[45px] h-[45px] rounded-md flex justify-center items-center bg-gray-200 dark:bg-[#7789AB]"
             >
               <i class="fa-solid fa-circle-info"></i>
             </button>
@@ -90,46 +94,173 @@
       </div>
     </div>
   </div>
-    
+   </div> 
         <!-- dropdown ends here -->
-      </div>
+      
       <!-- -------------------- main body ----------------  -->
+
+
       <div
         class="w-full min-h-screen flex justify-center items-center flex-col"
+        v-show="shownote"
       >
         <p
           class="text-xl font-bold text-center dark:text-white px-4 text-gray-600 mb-4 mt-10"
         >
           No note added on the selected date yet
         </p>
-        <button class="px-4 py-2 bg-blue-500 text-white rounded">
+        <button class="px-4 py-2 bg-blue-500 text-white rounded" @click="showtext">
           Add Note
         </button>
       </div>
-    </section>
 
-    <!-- -------------------- Text Area body ----------------  -->
-    <hr />
+
+      <div
+        class="w-full min-h-screen flex justify-center items-center flex-col"
+        v-show="!shownote"
+      >
+      
+    <div v-if="editor" class="tiptap w-full focus:ring-green-500 p-4 mt-[60px] bg-[rgba(0,0,0,0)] border-0 noneScroll dark:bg-gray-800 outline-0 text-black dark:text-white min-h-[calc(100vh-65px)]">
+      <div class="pt-10 pb-10">
+        <div class="flex justify-center items-center ">
+          <button class="hover:bg-gray-300  m-1 p-1 text-sm rounded-md bg-gray-200 dark:bg-[#7789AB]" @click="editor.chain().focus().toggleBold().run()" :disabled="!editor.can().chain().focus().toggleBold().run()" :class="{ 'is-active': editor.isActive('bold') }">
+            <i class=" fa-solid p-1 fa-bold"></i>
+          </button>
+          <button class="m-1 p-1 text-sm rounded-md bg-gray-200 dark:bg-[#7789AB]" @click="editor.chain().focus().toggleItalic().run()" :disabled="!editor.can().chain().focus().toggleItalic().run()" :class="{ 'is-active': editor.isActive('italic') }">
+            <i class="fa-solid p-1 fa-italic"></i>
+          </button>
+          <button class="m-1 p-1 text-sm rounded-md bg-gray-200 dark:bg-[#7789AB]" @click="editor.chain().focus().setParagraph().run()" :class="{ 'is-active': editor.isActive('paragraph') }">
+            <i class="fa-solid p-1 fa-paragraph"></i>
+          </button>
+          <button class="m-1 p-1 text-sm rounded-md bg-gray-200 dark:bg-[#7789AB]" @click="editor.chain().focus().toggleHeading({ level: 1 }).run()" :class="{ 'is-active': editor.isActive('heading', { level: 1 }) }">
+            <b>H1</b>
+          </button>
+          <button class="m-1 p-1 text-sm rounded-md bg-gray-200 dark:bg-[#7789AB]" @click="editor.chain().focus().toggleHeading({ level: 2 }).run()" :class="{ 'is-active': editor.isActive('heading', { level: 2 }) }">
+            <b>H2</b>
+          </button>
+          <button class="m-1 p-1 text-sm rounded-md bg-gray-200 dark:bg-[#7789AB]" @click="editor.chain().focus().toggleHeading({ level: 3 }).run()" :class="{ 'is-active': editor.isActive('heading', { level: 3 }) }">
+            <b>H3</b>
+          </button>
+          <button class="m-1 p-1 text-sm rounded-md bg-gray-200 dark:bg-[#7789AB]" @click="editor.chain().focus().toggleBulletList().run()" :class="{ 'is-active': editor.isActive('bulletList') }">
+            <i class="fa-solid p-1 fa-list"></i>
+          </button>
+          <button class="m-1 p-1 text-sm rounded-md bg-gray-200 dark:bg-[#7789AB]" @click="editor.chain().focus().toggleCodeBlock().run()" :class="{ 'is-active': editor.isActive('codeBlock') }">
+            <i class="fa-solid p-1 fa-code"></i>
+          </button>
+          <button class="m-1 p-1 text-sm rounded-md bg-gray-200 dark:bg-[#7789AB]" @click="editor.chain().focus().toggleBlockquote().run()" :class="{ 'is-active': editor.isActive('blockquote') }">
+            <i class="fa-solid p-1 fa-quote-left"></i>
+          </button>
+          <button class="m-1 p-1 text-sm rounded-md bg-gray-200 dark:bg-[#7789AB]" @click="editor.chain().focus().toggleHighlight().run()" :class="{ 'is-active': editor.isActive('highlight') }">
+            <i class="fa-solid p-1 fa-highlighter"></i>
+          </button>
+          <button class="m-1 p-1 text-sm rounded-md bg-gray-200 dark:bg-[#7789AB]" @click="editor.chain().focus().setTextAlign('left').run()" :class="{ 'is-active': editor.isActive({ textAlign: 'left' }) }">
+            <i class="fa-solid p-1 fa-align-left"></i>
+        </button>
+        <button class="m-1 p-1 text-sm rounded-md bg-gray-200 dark:bg-[#7789AB]" @click="editor.chain().focus().setTextAlign('center').run()" :class="{ 'is-active': editor.isActive({ textAlign: 'center' }) }">
+          <i class="fa-solid p-1 fa-align-center"></i>
+        </button>
+        <button class="m-1 p-1 text-sm rounded-md bg-gray-200 dark:bg-[#7789AB]" @click="editor.chain().focus().setTextAlign('right').run()" :class="{ 'is-active': editor.isActive({ textAlign: 'right' }) }">
+          <i class="fa-solid p-1 fa-align-right"></i>
+        </button>
+         <button class="m-1 p-1 text-sm rounded-md bg-gray-200 dark:bg-[#7789AB]" @click="editor.chain().focus().setColor('#958DF1').run()" :class="{ 'is-active': editor.isActive('textStyle', { color: '#958DF1' }) }">
+          <b><small>Purple</small></b>
+        </button>
+        </div>
+      </div>
+    <editor-content :editor="editor"/>
+  </div>
+
+      </div>
+
+      
+    </section>
   </div>
 </template>
 
 
 <script>
 
+
+import StarterKit from '@tiptap/starter-kit'
+import { Color } from '@tiptap/extension-color'
 import { initFlowbite } from 'flowbite'
+import { Editor, EditorContent } from '@tiptap/vue-2'
+import TextStyle from '@tiptap/extension-text-style'
+import Highlight from '@tiptap/extension-highlight'
+import Bold from '@tiptap/extension-bold'
+import Italic from '@tiptap/extension-italic'
+import CodeBlock from '@tiptap/extension-code-block'
+import Blockquote from '@tiptap/extension-blockquote'
+
+import ListItem from '@tiptap/extension-list-item'
+import TextAlign from '@tiptap/extension-text-align'
+
+import BulletList from '@tiptap/extension-bullet-list'
+import Heading from '@tiptap/extension-heading'
 
 export default {
   name: 'NoteView',
+  components: {
+      EditorContent,
+    },
   data(){
     return {
       isDropdownOpen: false,
-      selectedDate: this.getFormattedDate()
+      selectedDate: this.getFormattedDate(),
+      shownote:false,
+      editor: null,
     }
   },
   mounted() {
     initFlowbite();
+    this.editor = new Editor({
+      extensions: [
+        Color.configure({ types: [TextStyle.name, ListItem.name] }),
+        TextStyle.configure({ types: [ListItem.name] }),
+        Heading.configure({
+          levels: [1, 2, 3],
+        }),
+        StarterKit,
+        Highlight,
+        Bold,
+        Italic,
+        BulletList,
+        CodeBlock,
+        Blockquote,
+        TextAlign.configure({
+          types: ['heading', 'paragraph'],
+        }),
+      ],
+      content: `
+        <h2>
+          Hi there,
+        </h2>
+        <p>
+          this is a <em>basic</em> example of <strong>Tiptap</strong>. Sure, there are all kind of basic text styles you’d probably expect from a text editor. But wait until you see the lists:
+        </p>
+        <ul>
+          <li>
+            That’s a bullet list with one …
+          </li>
+          <li>
+            … or two list items.
+          </li>
+        </ul>
+      `,
+    })
+
+  },
+  beforeUnmount() {
+    this.editor.destroy()
   },
   methods:{
+
+    showtext() {
+      this.shownote = false;
+    },
+
+
+    // for dropdown
     toggleDropdown() {
       this.isDropdownOpen = !this.isDropdownOpen;
     },
@@ -144,3 +275,110 @@ export default {
 }
 }
 </script>
+
+<style lang="scss">
+/* Basic editor styles */
+.tiptap {
+  :first-child {
+    margin-top: 0;
+    outline: none;
+    text-align: left;
+  }
+
+  /* List styles */
+  ul {
+    padding: 0 1rem;
+    margin: 1.25rem 1rem 1.25rem 0.4rem;
+
+    li p {
+      margin-top: 0.2em;
+      margin-bottom: 0.2em;
+      margin-left: 0.2em;
+      list-style-type: disc;
+      display:list-item; 
+    }
+
+  }
+
+
+  /* Heading styles */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    line-height: 1.1;
+    margin-top: 2.5rem;
+    text-wrap: pretty;
+  }
+
+  h1,
+  h2 {
+    margin-top: 3.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  h1 {
+    font-size: 1.4rem;
+  }
+
+  h2 {
+    font-size: 1.2rem;
+  }
+
+  h3 {
+    font-size: 1.1rem;
+  }
+
+  h4,
+  h5,
+  h6 {
+    font-size: 1rem;
+  }
+
+  /* Code and preformatted text styles */
+  code {
+    background-color: var(--purple-light);
+    border-radius: 0.4rem;
+    color: var(--black);
+    font-size: 0.85rem;
+    padding: 0.25em 0.3em;
+  }
+
+  pre {
+    background: #323f50;
+    border-radius: 0.5rem;
+    color: var(--white);
+    font-family: 'JetBrainsMono', monospace;
+    margin: 1.5rem 0;
+    padding: 0.75rem 1rem;
+
+    code {
+      background: none;
+      color: inherit;
+      font-size: 0.8rem;
+      padding: 0;
+    }
+  }
+
+  mark {
+    background-color: #FAF594;
+    border-radius: 0.4rem;
+    box-decoration-break: clone;
+    padding: 0.1rem 0.3rem;
+  }
+
+  blockquote {
+    border-left: 2px solid gray;
+    margin: 1.5rem 0;
+    padding-left: 1rem;
+  }
+
+  hr {
+    border: none;
+    border-top: 1px solid var(--gray-2);
+    margin: 2rem 0;
+  }
+}
+</style>

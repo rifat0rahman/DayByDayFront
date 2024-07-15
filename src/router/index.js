@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import note from '../views/dashboard/note.vue'
+import allnotes from '../views/dashboard/allnotes.vue'
 // for auth here
 import login from '../views/auth/login.vue'
 import registration from '../views/auth/registration.vue'
@@ -14,6 +15,11 @@ const routes = [
     path: '/app/note',
     name: 'note',
     component: note
+  },
+  {
+    path: '/app/all-notes',
+    name: 'all-notes',
+    component: allnotes
   },
   // auth here
   {

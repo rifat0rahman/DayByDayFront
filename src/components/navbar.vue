@@ -4,6 +4,7 @@
         class="w-full fixed top-0 z-[1000] px-5 p-4 dark:bg-gray-800 bg-gray-50 flex justify-between items-center"
       >
         <h1 class="text-2xl font-madium dark:text-white font-cursive">daybydaybyday</h1>
+          
         <div class="flex justify-center dark:text-white items-center gap-2">
           <button
             onclick="changeThem()"

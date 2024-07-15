@@ -46,7 +46,13 @@
             <p href="#" class="text-sm text-center my-3 dark:text-gray-400">
               No account yet?
             </p>
-            <RouterLink to="/registration" class="w-full p-2 rounded-md cursor-pointer bg-slate-400 font-bold text-[14px] text-white">Go back to login</RouterLink>
+            <div class="w-full p-2 rounded-md cursor-pointer bg-slate-400 font-bold text-[14px] text-white">
+                        <RouterLink to="/registration">
+              Go to Registration
+
+            </RouterLink>  
+          </div>
+
           </div>
         </form>
       </div>
